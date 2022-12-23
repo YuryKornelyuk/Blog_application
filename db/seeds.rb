@@ -5,6 +5,11 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
-10.times do |x|
-  Post.create(title: "Title #{x}", body: "Body #{x} and many other words")
+
+User.create(email: 'yury@example.com', password: 'password', password_confirmation: 'password')
+
+30.times do |x|
+  title = Faker::Hipster.sentence(word_count: 3)
+  body = Faker::Lorem.paragraph(sentence_count: 5, supplemental: true, random_sentences_to_add: 4)
+  Post.create(title: title, body: body, user_id: User.first.id)
 end
