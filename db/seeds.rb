@@ -6,10 +6,23 @@
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 
-User.create(email: 'yury@example.com', password: 'password', password_confirmation: 'password')
+User.create(email: 'yury@kornelyuk.com',
+            password: 'password',
+            password_confirmation: 'password',
+            name: 'Yury',
+            role: User.roles[:admin])
+User.create(email: 'john@doe.com',
+            password: 'password',
+            password_confirmation: 'password',
+            name: 'John Doe')
 
 30.times do |x|
   title = Faker::Hipster.sentence(word_count: 3)
   body = Faker::Lorem.paragraph(sentence_count: 5, supplemental: true, random_sentences_to_add: 4)
-  Post.create(title: title, body: body, user_id: User.first.id)
+  post = Post.create(title: title, body: body, user_id: User.first.id)
+
+  10.times do |y|
+    comment = Faker::Hipster.sentence(word_count: 3)
+    Comment.create(post_id: post.id, body: comment, user_id: User.second.id)
+  end
 end
