@@ -16,13 +16,26 @@ User.create(email: 'john@doe.com',
             password_confirmation: 'password',
             name: 'John Doe')
 
-30.times do |x|
-  title = Faker::Hipster.sentence(word_count: 3)
-  body = Faker::Lorem.paragraph(sentence_count: 5, supplemental: true, random_sentences_to_add: 4)
-  post = Post.create(title: title, body: body, user_id: User.first.id)
+posts = []
+comments = []
 
-  10.times do |y|
-    comment = Faker::Hipster.sentence(word_count: 3)
-    Comment.create(post_id: post.id, body: comment, user_id: User.second.id)
+elapsed = Benchmark.measure do
+  1000.times do |x|
+    puts "Creating post #{x}"
+    title = Faker::Hipster.sentence(word_count: 3)
+    body = Faker::Lorem.paragraph(sentence_count: 5, supplemental: true, random_sentences_to_add: 4)
+    post = Post.new(title: title, body: body, user_id: User.first.id)
+    posts.push(post)
+
+    10.times do |y|
+      puts "Creating comment #{y} for post #{x}"
+      fake_comment = Faker::Hipster.sentence(word_count: 3)
+      comment = post.comments.new(post_id: post.id, body: fake_comment, user_id: User.second.id)
+      comments.push(comment)
+    end
   end
 end
+
+Post.import(posts)
+Comment.import(comments)
+puts "Post #{posts.count} posts and #{comments.count} comments in #{elapsed.real} seconds"
