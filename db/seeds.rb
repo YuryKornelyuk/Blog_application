@@ -16,26 +16,28 @@ User.create(email: 'john@doe.com',
             password_confirmation: 'password',
             name: 'John Doe')
 
-posts = []
-comments = []
 
 elapsed = Benchmark.measure do
+  posts = []
+  yury = User.first
+  john = User.second
   1000.times do |x|
     puts "Creating post #{x}"
-    title = Faker::Hipster.sentence(word_count: 3)
-    body = Faker::Lorem.paragraph(sentence_count: 5, supplemental: true, random_sentences_to_add: 4)
-    post = Post.new(title: title, body: body, user_id: User.first.id)
-    posts.push(post)
+    title_p = Faker::Hipster.sentence(word_count: 3)
+    body_p = Faker::Lorem.paragraph(sentence_count: 5, supplemental: true, random_sentences_to_add: 4)
+    post = Post.new(title: title_p,
+                    body: body_p,
+                    user: yury)
 
     10.times do |y|
       puts "Creating comment #{y} for post #{x}"
-      fake_comment = Faker::Hipster.sentence(word_count: 3)
-      comment = post.comments.new(post_id: post.id, body: fake_comment, user_id: User.second.id)
-      comments.push(comment)
+      body_c = Faker::Hipster.sentence(word_count: 5)
+      post.comments.build(body: body_c,
+                          user: john)
     end
+    posts.push(post)
   end
+  Post.import(posts, recursive: true)
 end
 
-Post.import(posts)
-Comment.import(comments)
-puts "Post #{posts.count} posts and #{comments.count} comments in #{elapsed.real} seconds"
+puts "Elapsed time is #{elapsed.real} seconds"
