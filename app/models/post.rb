@@ -4,6 +4,7 @@ class Post < ApplicationRecord
   validates :body, presence: true
   belongs_to :user
   has_many :comments, dependent: :destroy
+  belongs_to :category
 
   has_rich_text :body
   has_one :content, class_name: 'ActionText::RichText', as: :record, dependent: :destroy
@@ -15,5 +16,9 @@ class Post < ApplicationRecord
 
   def should_generate_new_friendly_id?
     title_changed? || slug.blank?
+  end
+
+  def post_category
+    Category.find_by(id: category_id).title
   end
 end

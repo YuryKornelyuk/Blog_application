@@ -35,6 +35,8 @@ Address.first_or_create(street: '123 Main St',
                         country: 'USA',
                         user: john)
 
+Category.first_or_create!(title: 'Uncategorized')
+
 elapsed = Benchmark.measure do
   posts = []
   100.times do |x|
@@ -43,7 +45,8 @@ elapsed = Benchmark.measure do
     body_p = Faker::Lorem.paragraph(sentence_count: 5, supplemental: true, random_sentences_to_add: 4)
     post = Post.new(title: title_p,
                     body: body_p,
-                    user: yury)
+                    user: yury,
+                    category_id: Category.first.id)
 
     10.times do |y|
       puts "Creating comment #{y} for post #{x}"
