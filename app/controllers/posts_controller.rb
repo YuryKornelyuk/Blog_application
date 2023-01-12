@@ -3,7 +3,14 @@ class PostsController < ApplicationController
   before_action :authenticate_user!, except: %i[show index]
   # GET /posts or /posts.json
   def index
-    @posts = Post.all.includes(:user, :rich_text_body).order(created_at: :desc)
+    if params[:filter].present?
+      @posts = Post.includes(:user, :rich_text_body).all.where(
+        category_id: Category.find_by_title(params[:filter]).id).order(updated_at: :desc)
+      @posts_filter = Category.find_by_title(params[:filter]).title
+    else
+      @posts = Post.includes(:user, :rich_text_body).all.order(updated_at: :desc)
+      @posts_filter = 'All'
+    end
   end
 
   # GET /posts/1 or /posts/1.json
@@ -75,7 +82,7 @@ class PostsController < ApplicationController
 
   # Only allow a list of trusted parameters through.
   def post_params
-    params.require(:post).permit(:title, :body)
+    params.require(:post).permit(:title, :body, :category_id)
   end
 
   def mark_notifications_as_read

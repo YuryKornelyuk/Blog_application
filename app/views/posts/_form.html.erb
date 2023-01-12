@@ -12,6 +12,11 @@
   <% end %>
 
   <div>
+    <%= form.label :category %>
+    <%= form.select :category_id, Category.all.order(:title).map {|category| [category.title, category.id]} %>
+  </div>
+
+  <div>
     <%= form.label :title, style: "display: block" %>
     <%= form.text_field :title %>
   </div>

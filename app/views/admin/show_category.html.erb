@@ -1,0 +1,33 @@
+<div class="container">
+  <h1 class="text-center">Administrator</h1>
+  <%= render 'admin/nav_links' %>
+  <div class="text-center mt-5">
+    <div class="btn-group">
+      <%= link_to 'Edit', edit_category_path(@category), class: 'btn btn-warning' %>
+      <%= button_to 'Delete', @category, method: :delete, data: { confirm: 'Are you sure?'}, class: 'btn btn-danger' %>
+    </div>
+  </div>
+  <div class="row mt-1">
+    <p>
+      <strong>Title:</strong> <%= @category.title %>
+    </p>
+  </div>
+  <div class="row mt-1">
+    <p>
+      <strong>Posts:</strong> <%= Post.where(category_id: @category.id).size %>
+    </p>
+  </div>
+  <div class="row mt-1">
+    <p>
+      <strong>Created at:</strong> <%= @category.created_at %>
+    </p>
+  </div>
+  <div class="row mt-1">
+    <p>
+      <strong>Updated at:</strong> <%= @category.updated_at %>
+    </p>
+  </div>
+  <div>
+    <%= link_to "Back to categories", admin_categories_path %>
+  </div>
+</div>

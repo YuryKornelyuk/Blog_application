@@ -1,0 +1,27 @@
+<div class="container">
+  <h1 class="text-center">Administrator</h1>
+  <%= render 'admin/nav_links' %>
+
+  <div>
+    <%= link_to 'New Category', admin_categories_new_path, class: 'btn btn-primary mt-5' %>
+  </div>
+
+  <table class="table table-dark table-striped mt-5">
+    <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Title</th>
+      <th scope="col">Posts</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <% @categories.each do |category| %>
+        <th scope="row"><%= category.id %></th>
+        <td><%= link_to category.title, admin_category_path(category) %></td>
+        <td><%= pluralize(Post.where(category_id: category.id).size, 'Post') %></td>
+        </tr>
+      <% end %>
+      </tbody>
+  </table>
+</div>
