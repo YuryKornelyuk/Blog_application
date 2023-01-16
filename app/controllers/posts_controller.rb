@@ -4,11 +4,11 @@ class PostsController < ApplicationController
   # GET /posts or /posts.json
   def index
     if params[:filter].present?
-      @posts = Post.includes(:user, :rich_text_body).all.where(
+      @posts = Post.includes(:user, :category, :rich_text_body).all.where(
         category_id: Category.find_by_title(params[:filter]).id).order(updated_at: :desc)
       @posts_filter = Category.find_by_title(params[:filter]).title
     else
-      @posts = Post.includes(:user, :rich_text_body).all.order(updated_at: :desc)
+      @posts = Post.includes(:user, :category, :rich_text_body).all.order(updated_at: :desc)
       @posts_filter = 'All'
     end
   end

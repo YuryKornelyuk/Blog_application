@@ -11,14 +11,27 @@
     </div>
   <% end %>
 
-  <div>
-    <%= form.label :category %>
-    <%= form.select :category_id, Category.all.order(:title).map {|category| [category.title, category.id]} %>
+  <div class="mb-3 row">
+    <div class="col-sm-2 col-form-label">
+      <%= form.label :category %>
+    </div>
+    <div class="col-sm-10">
+      <select class="form-select">
+        <option selected><%= post.category.title %></option>
+        <% Category.order(:title).each do |category| %>
+          <option value><%= category.title %></option>
+        <% end %>
+      </select>
+    </div>
   </div>
 
-  <div>
-    <%= form.label :title, style: "display: block" %>
-    <%= form.text_field :title %>
+  <div class="mb-3 row">
+    <div class="col-sm-2 col-form-label"
+    <%= form.label :title %>
+  </div>
+  <div class="col-sm-10">
+    <%= form.text_field :title, class: 'form-control' %>
+  </div>
   </div>
 
   <div>
@@ -26,7 +39,7 @@
     <%= form.rich_text_area :body %>
   </div>
 
-  <div>
-    <%= form.submit %>
+  <div class="mt-3">
+    <%= form.submit 'Submit Post', class: 'btn btn-primary' %>
   </div>
 <% end %>
