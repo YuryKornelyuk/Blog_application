@@ -6,7 +6,7 @@ class ApplicationController < ActionController::Base
     @query = Post.ransack(params[:q])
   end
   
-  def is_admin!
+  def is_admin?
     unless current_user&.admin?
       flash[:alert] = 'You are not authorized to access this page.'
       redirect_to root_path

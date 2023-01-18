@@ -12,15 +12,20 @@
         <li class="nav-item">
           <%= link_to 'Blog', posts_path, class: 'nav-link' %>
         </li>
+        <li>
+          <% if current_page?(posts_path) || current_page?("/posts/filter/#{@posts_filter}") %>
+            <%= render 'layouts/categories' %>
+          <% end %>
+        </li>
         <li class="nav-item">
-          <%= link_to 'Members', members_dashboard_path , class: 'nav-link' %>
+          <%= link_to 'Members', members_dashboard_path, class: 'nav-link' %>
+        </li>
+        <li class="nav-item">
+          <%= link_to 'Portfolio', projects_path, class: 'nav-link' %>
         </li>
         <li class="nav-item">
           <%= link_to 'About', about_path, class: 'nav-link' %>
         </li>
-        <% if current_page?(posts_path) || current_page?("/posts/filter/#{@posts_filter}") %>
-          <%= render 'layouts/categories' %>
-        <% end %>
       </ul>
       <ul class="navbar-nav">
         <%= render 'search/form' %>

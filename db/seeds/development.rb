@@ -39,9 +39,11 @@ def seed_addresses
 end
 
 def seed_categories
-  Category.first_or_create!(title: 'Uncategorized')
-  Category.first_or_create!(title: 'General')
-  Category.first_or_create!(title: 'Education')
+  Category.create(title: 'Uncategorized')
+  Category.create(title: 'General')
+  Category.create(title: 'Finance')
+  Category.create(title: 'Health')
+  Category.create(title: 'Education')
 end
 
 def seed_posts_and_comments
@@ -53,7 +55,7 @@ def seed_posts_and_comments
     post = Post.new(title: title_post,
                     body: body_post,
                     user: User.first,
-                    category_id: Category.first.id)
+                    category_id: Category.all.sample.id)
 
     10.times do |y|
       puts "Creating comment #{y} for post #{x}"
@@ -80,9 +82,9 @@ def seed_ahoy
   properties = visit_properties.generate.select { |_, v| v }
 
   example_visit = Ahoy::Visit.create!(properties.merge(
-    visit_token: SecureRandom.uuid,
-    visitor_token: SecureRandom.uuid
-  ))
+                                        visit_token: SecureRandom.uuid,
+                                        visitor_token: SecureRandom.uuid
+                                      ))
 
   2.months.ago.to_date.upto(Date.today) do |date|
     Post.all.each do |post|
