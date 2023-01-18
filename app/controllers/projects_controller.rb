@@ -4,7 +4,7 @@ class ProjectsController < ApplicationController
 
   # GET /projects or /projects.json
   def index
-    @projects = Project.includes([:rich_text_body]).all
+    @projects = Project.includes([:rich_text_body]).all.order(position: :asc)
   end
 
   # GET /projects/1 or /projects/1.json

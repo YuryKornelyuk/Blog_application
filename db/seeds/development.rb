@@ -23,14 +23,14 @@ def seed_users
 end
 
 def seed_addresses
-  Address.first_or_create!(street: '123 Main St',
+  Address.create(street: '123 Main St',
                            city: 'Anytown',
                            state: 'CA',
                            zip: '12345',
                            country: 'USA',
                            user: User.first)
 
-  Address.first_or_create(street: '123 Main St',
+  Address.create(street: '123 Main St',
                           city: 'Anytown',
                           state: 'CA',
                           zip: '12345',
