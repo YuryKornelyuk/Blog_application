@@ -1,4 +1,4 @@
-<%= form_with(model: post) do |form| %>
+<%= form_with(model: post, data: {controller: "emoji-picker"}) do |form| %>
   <% if post.errors.any? %>
     <div style="color: red">
       <h2><%= pluralize(post.errors.count, "error") %> prohibited this post from being saved:</h2>
@@ -34,9 +34,15 @@
   </div>
   </div>
 
+  <%= content_tag(:div, '', class:'pickerContainer', data: {
+    emoji_picker_target: 'pickerContainer',
+  }) %>
+
   <div>
     <%= form.label :body, style: "display: block" %>
-    <%= form.rich_text_area :body, class: 'form-control' %>
+    <%= form.rich_text_area :body, class: 'form-control', data: {
+      emoji_picker_target: 'trixEditor',
+    } %>
   </div>
 
   <div class="mt-3">

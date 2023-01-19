@@ -1,7 +1,0 @@
-{
-  "name": "blog_demo",
-  "version": "1.0.0",
-  "dependencies": {
-    "@hotwired/stimulus": "^3.2.1"
-  }
-}

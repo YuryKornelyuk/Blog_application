@@ -54,14 +54,14 @@ def seed_posts_and_comments
     body_post = Faker::Lorem.paragraph(sentence_count: 5, supplemental: true, random_sentences_to_add: 4)
     post = Post.new(title: title_post,
                     body: body_post,
-                    user: User.first,
+                    user: User.all.sample,
                     category_id: Category.all.sample.id)
 
     10.times do |y|
       puts "Creating comment #{y} for post #{x}"
       body_comment = Faker::Hipster.sentence(word_count: 5)
       post.comments.build(body: body_comment,
-                          user: User.second)
+                          user: User.all.sample)
     end
     posts.push(post)
   end

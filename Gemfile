@@ -70,6 +70,9 @@ group :development do
 
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
+
+  gem "better_errors"
+  gem "binding_of_caller"
 end
 
 group :test do
@@ -101,3 +104,5 @@ gem "groupdate", "~> 6.1"
 gem "chartkick", "~> 4.2"
 
 gem "acts_as_list", "~> 1.0"
+
+gem "whenever", "~> 1.0"
