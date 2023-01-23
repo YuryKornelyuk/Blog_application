@@ -6,6 +6,11 @@ class Post < ApplicationRecord
   has_many :comments, dependent: :destroy
   belongs_to :category
 
+  # single image upload
+  # has_one_attached :image
+  # multiple images upload
+  has_many_attached :images
+
   has_rich_text :body
   has_one :content, class_name: 'ActionText::RichText', as: :record, dependent: :destroy
 
